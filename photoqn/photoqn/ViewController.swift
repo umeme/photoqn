@@ -70,6 +70,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     // MARK: - Gesture Handlers
     func handleTap(sender: UITapGestureRecognizer){
         print("Tapped!:start")
+        favPhoto()
         if photoAssets.count > photoNo + 1 {
             photoNo++
             showPhoto()
@@ -80,11 +81,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func handleSwipeUp(sender: UITapGestureRecognizer){
         print("Swiped up!:start")
+        if photoAssets.count > photoNo + 1 {
+            photoNo++
+            showPhoto()
+        }
         print("Swiped up!:end")
     }
     
     func handleSwipeDown(sender: UITapGestureRecognizer){
         print("Swiped down!:start")
+        
         print("Swiped down!:end")
     }
     
@@ -126,6 +132,19 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 let imageView = UIImageView(image:image)
                 self.view.addSubview(imageView)
         }
+    }
+    
+    // 写真をふぁぼ
+    private func favPhoto() {
+        let favTargetAsset = photoAssets[photoNo]
+        PHPhotoLibrary.sharedPhotoLibrary().performChanges({
+            // Create a change request from the asset to be modified.
+            let request = PHAssetChangeRequest(forAsset: favTargetAsset)
+            // Set a property of the request to change the asset itself.
+            request.favorite = !favTargetAsset.favorite
+            
+            }, completionHandler: { success, error in
+                        })
     }
     
     
