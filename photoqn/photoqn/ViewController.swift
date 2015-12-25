@@ -3,8 +3,10 @@ import Photos
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-   var photoAssets = [PHAsset]()
-   private var swipeLabel: UILabel!
+    var photoAssets = [PHAsset]()
+    private var swipeLabel: UILabel!
+    let manager: PHImageManager = PHImageManager()
+    var photoNo: Int = 0
     
     @IBAction func addButton(sender: AnyObject) {
         self.pickImageFromCamera()
@@ -31,39 +33,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             case .Restricted:
                 print("Restricted")
             }
-            
         }
         
         getAllPhotosInfo()
-        
-        let asset = photoAssets[1]
-        
-        print(asset)
-        
-        let manager: PHImageManager = PHImageManager()
-        manager.requestImageForAsset(asset,
-            targetSize: CGSizeMake(70, 70),
-            contentMode: .AspectFill,
-            options: nil) { (image, info) -> Void in
-                // 取得したimageをUIImageViewなどで表示する
-                print("一枚目表示")
-                
-                let imageView = UIImageView(image:image)
-                
-                self.view.addSubview(imageView)
-                
-//                // UIImage インスタンスの生成
-//                let image:UIImage? = UIImage(named:"hoge.jpg")
-//                
-//                // UIImageView 初期化
-//                let imageView = UIImageView(image:image)
-//                // 画像の中心を187.5, 333.5 の位置に設定、iPhone6
-//                imageView.center = CGPointMake(187.5, 333.5)
-//                
-//                // UIImageViewのインスタンスをビューに追加
-//                self.view.addSubview(imageView)
-        }
-        
+        showPhoto()
         
         // single tap
         let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "handleTap:")
@@ -96,40 +69,36 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     // MARK: - Gesture Handlers
     func handleTap(sender: UITapGestureRecognizer){
-        print("Tapped!")
+        print("Tapped!:start")
+        if photoAssets.count > photoNo + 1 {
+            photoNo++
+            showPhoto()
+        }
+        print("Tapped!:end")
+        
     }
     
     func handleSwipeUp(sender: UITapGestureRecognizer){
-        print("Swiped up!")
+        print("Swiped up!:start")
+        print("Swiped up!:end")
     }
     
     func handleSwipeDown(sender: UITapGestureRecognizer){
-        print("Swiped down!")
+        print("Swiped down!:start")
+        print("Swiped down!:end")
     }
     
     func handleSwipeRight(sender: UITapGestureRecognizer){
-        print("Swiped Right!")
+        print("Swiped Right!:start")
+        print("Swiped Right!:end")
     }
     
     func handleSwipeLeft(sender: UITapGestureRecognizer){
-        print("Swiped Left!")
+        print("Swiped Left!:start")
+        print("Swiped Left!:end")
     }
     
-    
-    internal func makeMyLabel(title: NSString, color: UIColor, myX: CGFloat, myY: CGFloat) -> UILabel{
-        let myLabel: UILabel = UILabel()
-        myLabel.frame = CGRectMake(0,0,80,80)
-        myLabel.backgroundColor = color
-        myLabel.textColor = UIColor.whiteColor()
-        myLabel.layer.masksToBounds = true
-        myLabel.text = title as String
-        myLabel.textAlignment = NSTextAlignment.Center
-        myLabel.layer.cornerRadius = 40.0
-        myLabel.layer.position = CGPoint(x: myX, y: myY)
-        myLabel.numberOfLines = 2
-        return myLabel
-    }
-    
+    // 写真を取得
     private func getAllPhotosInfo() {
         // 初期化
         photoAssets = []
@@ -139,8 +108,24 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         assets.enumerateObjectsUsingBlock { (asset, index, stop) -> Void in
             self.photoAssets.append(asset as! PHAsset)
         }
-        print("写真取得完了")
     }
+    
+    // 写真を表示
+    private func showPhoto() {
+        let asset = photoAssets[photoNo]
+        
+        manager.requestImageForAsset(asset,
+            targetSize: CGSize(width: 100.0, height: 100.0),
+            contentMode: .AspectFill,
+            options: nil) { (image, info) -> Void in
+                // 取得したimageをUIImageViewなどで表示する
+                
+                let imageView = UIImageView(image:image)
+                self.view.addSubview(imageView)
+        }
+    }
+    
+    
     
     // 写真を撮ってそれを選択
     private func pickImageFromCamera() {
@@ -167,5 +152,5 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         // Dispose of any resources that can be recreated.
     }
     
-
+    
 }
