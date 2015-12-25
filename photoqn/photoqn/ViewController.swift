@@ -95,6 +95,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func handleSwipeLeft(sender: UITapGestureRecognizer){
         print("Swiped Left!:start")
+        deleteImage()
+        getAllPhotosInfo()
+        photoNo--
+        showPhoto()
         print("Swiped Left!:end")
     }
     
@@ -102,7 +106,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     private func getAllPhotosInfo() {
         // 初期化
         photoAssets = []
-        
         // 画像をすべて取得
         let assets: PHFetchResult = PHAsset.fetchAssetsWithMediaType(.Image, options: nil)
         assets.enumerateObjectsUsingBlock { (asset, index, stop) -> Void in
@@ -125,6 +128,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
     }
     
+    
+    // 写真を削除
+    private func deleteImage() {
+        let delTargetAsset = photoAssets[photoNo]
+        PHPhotoLibrary.sharedPhotoLibrary().performChanges({ () -> Void in
+            // 削除などの変更はこのblocks内でリクエストする
+            PHAssetChangeRequest.deleteAssets([delTargetAsset])
+            }, completionHandler: { (success, error) -> Void in
+                // 完了時の処理をここに記述
+        })
+        
+    }
     
     
     // 写真を撮ってそれを選択
