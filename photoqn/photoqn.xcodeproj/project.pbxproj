@@ -17,6 +17,7 @@
 		696424011C281D600015954D /* photoqnUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696424001C281D600015954D /* photoqnUITests.swift */; };
 		6964240F1C281FF50015954D /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6964240E1C281FF50015954D /* AssetsLibrary.framework */; };
 		696424111C2832B40015954D /* hoge.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 696424101C2832B40015954D /* hoge.jpg */; };
+		69B880721C2D553E00B0FA3B /* instagramViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B880711C2D553E00B0FA3B /* instagramViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		696424021C281D600015954D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6964240E1C281FF50015954D /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		696424101C2832B40015954D /* hoge.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = hoge.jpg; path = ../hoge.jpg; sourceTree = "<group>"; };
+		69B880711C2D553E00B0FA3B /* instagramViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = instagramViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 				696423DD1C281D5F0015954D /* AppDelegate.swift */,
 				696423DF1C281D5F0015954D /* ViewController.swift */,
 				696423E11C281D5F0015954D /* Main.storyboard */,
+				69B880711C2D553E00B0FA3B /* instagramViewController.swift */,
 				696423E71C281D5F0015954D /* Assets.xcassets */,
 				696423E91C281D5F0015954D /* LaunchScreen.storyboard */,
 				696423EC1C281D5F0015954D /* Info.plist */,
@@ -267,6 +270,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69B880721C2D553E00B0FA3B /* instagramViewController.swift in Sources */,
 				696423E61C281D5F0015954D /* photoqn.xcdatamodeld in Sources */,
 				696423E01C281D5F0015954D /* ViewController.swift in Sources */,
 				696423DE1C281D5F0015954D /* AppDelegate.swift in Sources */,
@@ -494,6 +498,7 @@
 				696424071C281D600015954D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		696424081C281D600015954D /* Build configuration list for PBXNativeTarget "photoqnTests" */ = {
 			isa = XCConfigurationList;
@@ -502,6 +507,7 @@
 				6964240A1C281D600015954D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6964240B1C281D600015954D /* Build configuration list for PBXNativeTarget "photoqnUITests" */ = {
 			isa = XCConfigurationList;
@@ -510,6 +516,7 @@
 				6964240D1C281D600015954D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
