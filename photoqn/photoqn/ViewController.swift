@@ -129,6 +129,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             options: nil) { (image, info) -> Void in
                 // 取得したimageをUIImageViewなどで表示する
                 
+                
                 let imageView = UIImageView(image:image)
                 self.view.addSubview(imageView)
         }
@@ -144,7 +145,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             request.favorite = !favTargetAsset.favorite
             
             }, completionHandler: { success, error in
-                        })
+        })
     }
     
     

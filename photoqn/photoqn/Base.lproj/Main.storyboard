@@ -16,11 +16,62 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="HtD-Qz-jfq">
+                                <rect key="frame" x="143" y="7" width="315" height="29"/>
+                                <segments>
+                                    <segment title="自分のフォトライブラリ"/>
+                                    <segment title="Instagram"/>
+                                </segments>
+                                <connections>
+                                    <segue destination="60m-tm-hfE" kind="presentation" id="VLh-Cm-e4w"/>
+                                </connections>
+                            </segmentedControl>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="HtD-Qz-jfq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Sco-it-9PD"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="HtD-Qz-jfq" secondAttribute="bottom" constant="565" id="hu5-5o-U2V"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-43" y="463"/>
+        </scene>
+        <!--Instagram View Controller-->
+        <scene sceneID="vT6-xi-bYr">
+            <objects>
+                <viewController id="60m-tm-hfE" customClass="instagramViewController" customModule="photoqn" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="eN0-Z2-Gwi"/>
+                        <viewControllerLayoutGuide type="bottom" id="TH0-3f-6Y7"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="xyy-08-swO">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="Xv9-mB-LuV">
+                                <rect key="frame" x="143" y="7" width="315" height="29"/>
+                                <segments>
+                                    <segment title="自分のフォトライブラリ"/>
+                                    <segment title="Instagram"/>
+                                </segments>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="presentation" id="UuT-2l-zMU"/>
+                                </connections>
+                            </segmentedControl>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="TH0-3f-6Y7" firstAttribute="top" secondItem="Xv9-mB-LuV" secondAttribute="bottom" constant="565" id="4aE-Fe-aAX"/>
+                            <constraint firstItem="Xv9-mB-LuV" firstAttribute="centerX" secondItem="xyy-08-swO" secondAttribute="centerX" id="xWg-yl-FPu"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DaO-zQ-owe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="623" y="463"/>
         </scene>
     </scenes>
     <color key="tintColor" red="0.49695947221382131" green="0.94588514397905754" blue="0.76210772216212841" alpha="1" colorSpace="calibratedRGB"/>
