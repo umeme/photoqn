@@ -10,6 +10,9 @@ import UIKit
 
 class instagramViewController: UIViewController {
 
+    @IBOutlet weak var photoView: UIImageView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

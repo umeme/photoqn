@@ -1,12 +1,16 @@
 import UIKit
 import Photos
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, MDCSwipeToChooseDelegate {
     
     var photoAssets = [PHAsset]()
     private var swipeLabel: UILabel!
     let manager: PHImageManager = PHImageManager()
     var photoNo: Int = 0
+    
+    @IBOutlet weak var photoView: UIImageView!
+    
     
     @IBAction func addButton(sender: AnyObject) {
         self.pickImageFromCamera()
@@ -16,6 +20,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let options = MDCSwipeToChooseViewOptions()
+        options.delegate = self
+        options.likedText = "Keep"
+        options.likedColor = UIColor.blueColor()
+        options.nopeText = "Delete"
+        options.onPan = { state -> Void in
+            if state.thresholdRatio == 1 && state.direction == MDCSwipeDirection.Left {
+                print("Photo deleted!")
+            }
+        }
+
         
         // ユーザーに許可を促す.
         PHPhotoLibrary.requestAuthorization { (status) -> Void in
@@ -90,7 +106,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func handleSwipeDown(sender: UITapGestureRecognizer){
         print("Swiped down!:start")
-        
+        if 0 < photoNo - 1 {
+            photoNo--
+            showPhoto()
+        }
         print("Swiped down!:end")
     }
     
@@ -102,10 +121,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func handleSwipeLeft(sender: UITapGestureRecognizer){
         print("Swiped Left!:start")
         deleteImage()
-        getAllPhotosInfo()
-        photoNo--
-        showPhoto()
-        print("Swiped Left!:end")
+    
+        
+               print("Swiped Left!:end")
     }
     
     // 写真を取得
@@ -113,7 +131,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         // 初期化
         photoAssets = []
         // 画像をすべて取得
-        let assets: PHFetchResult = PHAsset.fetchAssetsWithMediaType(.Image, options: nil)
+        let options = PHFetchOptions()
+        options.sortDescriptors = [
+            NSSortDescriptor(key: "creationDate", ascending: false)
+        ]
+        
+        let assets: PHFetchResult = PHAsset.fetchAssetsWithMediaType(.Image, options: options)
         assets.enumerateObjectsUsingBlock { (asset, index, stop) -> Void in
             self.photoAssets.append(asset as! PHAsset)
         }
@@ -128,10 +151,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             contentMode: .AspectFill,
             options: nil) { (image, info) -> Void in
                 // 取得したimageをUIImageViewなどで表示する
+                self.photoView.contentMode = UIViewContentMode.ScaleAspectFill
+                self.photoView.image = image
                 
-                
-                let imageView = UIImageView(image:image)
-                self.view.addSubview(imageView)
         }
     }
     
@@ -145,6 +167,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             request.favorite = !favTargetAsset.favorite
             
             }, completionHandler: { success, error in
+                print("fav!")
         })
     }
     
@@ -157,6 +180,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             PHAssetChangeRequest.deleteAssets([delTargetAsset])
             }, completionHandler: { (success, error) -> Void in
                 // 完了時の処理をここに記述
+                print("削除")
+                self.photoAssets.removeAtIndex(self.photoNo)
+                print("removeされた")
+                if 0 < self.photoNo - 1 {
+                    self.photoNo--
+                }
+                self.showPhoto()
+                print("次の写真表示された")
         })
         
     }

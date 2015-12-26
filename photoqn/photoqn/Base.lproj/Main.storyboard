@@ -3,6 +3,8 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -18,22 +20,53 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="HtD-Qz-jfq">
-                                <rect key="frame" x="143" y="7" width="315" height="29"/>
+                                <rect key="frame" x="143" y="28" width="315" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="JHM-6p-Mbj"/>
+                                </constraints>
                                 <segments>
                                     <segment title="自分のフォトライブラリ"/>
                                     <segment title="Instagram"/>
                                 </segments>
                                 <connections>
-                                    <segue destination="60m-tm-hfE" kind="presentation" id="VLh-Cm-e4w"/>
+                                    <segue destination="60m-tm-hfE" kind="presentation" modalTransitionStyle="crossDissolve" id="VLh-Cm-e4w"/>
                                 </connections>
                             </segmentedControl>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kNd-J2-bAw">
+                                <rect key="frame" x="20" y="69" width="560" height="485"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="kNd-J2-bAw" secondAttribute="height" multiplier="40:33" id="ym7-Ot-vSm"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="ym7-Ot-vSm"/>
+                                    </mask>
+                                </variation>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="HtD-Qz-jfq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Sco-it-9PD"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="HtD-Qz-jfq" secondAttribute="bottom" constant="565" id="hu5-5o-U2V"/>
+                            <constraint firstItem="kNd-J2-bAw" firstAttribute="centerX" secondItem="HtD-Qz-jfq" secondAttribute="centerX" id="CM2-EE-gxk"/>
+                            <constraint firstItem="kNd-J2-bAw" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="Ebs-2f-FhS"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="kNd-J2-bAw" secondAttribute="bottom" constant="46" id="KiZ-zG-Q3B"/>
+                            <constraint firstItem="HtD-Qz-jfq" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" symbolic="YES" id="LOD-xb-e0U"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="kNd-J2-bAw" secondAttribute="bottom" constant="-29" id="VBB-ea-u6x"/>
+                            <constraint firstItem="kNd-J2-bAw" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="mxj-BH-cOr"/>
+                            <constraint firstItem="kNd-J2-bAw" firstAttribute="top" secondItem="HtD-Qz-jfq" secondAttribute="bottom" constant="13" id="noM-IZ-78B"/>
+                            <constraint firstItem="kNd-J2-bAw" firstAttribute="top" secondItem="HtD-Qz-jfq" secondAttribute="bottom" constant="15" id="tmP-9y-PCR"/>
+                            <constraint firstItem="kNd-J2-bAw" firstAttribute="top" secondItem="HtD-Qz-jfq" secondAttribute="bottom" constant="15" id="vMD-wQ-4aE"/>
+                            <constraint firstItem="HtD-Qz-jfq" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" symbolic="YES" id="vnx-g9-6Jy"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="VBB-ea-u6x"/>
+                                <exclude reference="noM-IZ-78B"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <connections>
+                        <outlet property="photoView" destination="kNd-J2-bAw" id="9rK-Ub-RGB"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -52,26 +85,41 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="Xv9-mB-LuV">
-                                <rect key="frame" x="143" y="7" width="315" height="29"/>
+                                <rect key="frame" x="143" y="28" width="315" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="58E-fj-Clc"/>
+                                </constraints>
                                 <segments>
                                     <segment title="自分のフォトライブラリ"/>
                                     <segment title="Instagram"/>
                                 </segments>
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="presentation" id="UuT-2l-zMU"/>
+                                    <segue destination="BYZ-38-t0r" kind="presentation" modalTransitionStyle="crossDissolve" id="UuT-2l-zMU"/>
                                 </connections>
                             </segmentedControl>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JCv-kR-i9m">
+                                <rect key="frame" x="20" y="71" width="560" height="458"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="TH0-3f-6Y7" firstAttribute="top" secondItem="Xv9-mB-LuV" secondAttribute="bottom" constant="565" id="4aE-Fe-aAX"/>
-                            <constraint firstItem="Xv9-mB-LuV" firstAttribute="centerX" secondItem="xyy-08-swO" secondAttribute="centerX" id="xWg-yl-FPu"/>
+                            <constraint firstItem="JCv-kR-i9m" firstAttribute="centerX" secondItem="Xv9-mB-LuV" secondAttribute="centerX" id="9Hw-08-cBq"/>
+                            <constraint firstItem="JCv-kR-i9m" firstAttribute="centerY" secondItem="xyy-08-swO" secondAttribute="centerY" id="I6h-Be-oIZ"/>
+                            <constraint firstItem="JCv-kR-i9m" firstAttribute="leading" secondItem="xyy-08-swO" secondAttribute="leadingMargin" id="K4k-Kl-VxC"/>
+                            <constraint firstItem="JCv-kR-i9m" firstAttribute="top" secondItem="Xv9-mB-LuV" secondAttribute="bottom" constant="15" id="Lyk-my-8p3"/>
+                            <constraint firstItem="JCv-kR-i9m" firstAttribute="trailing" secondItem="xyy-08-swO" secondAttribute="trailingMargin" id="MTB-zN-qU0"/>
+                            <constraint firstItem="Xv9-mB-LuV" firstAttribute="top" secondItem="eN0-Z2-Gwi" secondAttribute="bottom" constant="8" symbolic="YES" id="MnA-ss-Gl5"/>
+                            <constraint firstItem="JCv-kR-i9m" firstAttribute="top" secondItem="Xv9-mB-LuV" secondAttribute="bottom" constant="15" id="N41-xK-Ml1"/>
+                            <constraint firstItem="JCv-kR-i9m" firstAttribute="top" secondItem="Xv9-mB-LuV" secondAttribute="bottom" constant="15" id="oEv-yM-PnO"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="photoView" destination="JCv-kR-i9m" id="cBJ-bl-Rcn"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DaO-zQ-owe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="623" y="463"/>
+            <point key="canvasLocation" x="690" y="463"/>
         </scene>
     </scenes>
     <color key="tintColor" red="0.49695947221382131" green="0.94588514397905754" blue="0.76210772216212841" alpha="1" colorSpace="calibratedRGB"/>
