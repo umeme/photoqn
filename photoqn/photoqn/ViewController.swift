@@ -1,16 +1,17 @@
 import UIKit
 import Photos
 
-
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, MDCSwipeToChooseDelegate {
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    // MDCSwipeToChooseDelegate
     
     var photoAssets = [PHAsset]()
     private var swipeLabel: UILabel!
     let manager: PHImageManager = PHImageManager()
     var photoNo: Int = 0
+    var photoX : CGFloat = 0.0
+    var photoY : CGFloat = 0.0
     
     @IBOutlet weak var photoView: UIImageView!
-    
     
     @IBAction func addButton(sender: AnyObject) {
         self.pickImageFromCamera()
@@ -21,17 +22,21 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let options = MDCSwipeToChooseViewOptions()
-        options.delegate = self
-        options.likedText = "Keep"
-        options.likedColor = UIColor.blueColor()
-        options.nopeText = "Delete"
-        options.onPan = { state -> Void in
-            if state.thresholdRatio == 1 && state.direction == MDCSwipeDirection.Left {
-                print("Photo deleted!")
-            }
-        }
-
+        
+        photoX = photoView.center.x
+        photoY = photoView.center.y
+        
+        //        let options = MDCSwipeToChooseViewOptions()
+        //        options.delegate = self
+        //        options.likedText = "Keep"
+        //        options.likedColor = UIColor.blueColor()
+        //        options.nopeText = "Delete"
+        //        options.onPan = { state -> Void in
+        //            if state.thresholdRatio == 1 && state.direction == MDCSwipeDirection.Left {
+        //                print("Photo deleted!")
+        //            }
+        //        }
+        
         
         // ユーザーに許可を促す.
         PHPhotoLibrary.requestAuthorization { (status) -> Void in
@@ -86,10 +91,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     // MARK: - Gesture Handlers
     func handleTap(sender: UITapGestureRecognizer){
         print("Tapped!:start")
-        favPhoto()
-        if photoAssets.count > photoNo + 1 {
-            photoNo++
-            showPhoto()
+        if photoAssets.count != 0 {
+            favPhoto()
+            if photoAssets.count > photoNo + 1 {
+                photoNo++
+                showPhoto()
+            }
         }
         print("Tapped!:end")
         
@@ -99,7 +106,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         print("Swiped up!:start")
         if photoAssets.count > photoNo + 1 {
             photoNo++
-            showPhoto()
+            // アニメーション処理
+            UIView.animateWithDuration(NSTimeInterval(CGFloat(0.8)),
+                animations: {() -> Void in
+                    // 移動先の座標を指定する.
+                    self.photoView.center = CGPoint(x: self.photoView.center.x, y: -self.view.frame.height);
+                }, completion: {(Bool) -> Void in
+                    self.showPhoto()
+            })
         }
         print("Swiped up!:end")
     }
@@ -108,7 +122,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         print("Swiped down!:start")
         if 0 < photoNo - 1 {
             photoNo--
-            showPhoto()
+            // アニメーション処理
+            UIView.animateWithDuration(NSTimeInterval(CGFloat(0.8)),
+                animations: {() -> Void in
+                    // 移動先の座標を指定する.
+                    self.photoView.center = CGPoint(x: self.photoView.center.x, y: +self.view.frame.height*2);
+                }, completion: {(Bool) -> Void in
+                    self.showPhoto()
+            })
         }
         print("Swiped down!:end")
     }
@@ -120,16 +141,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func handleSwipeLeft(sender: UITapGestureRecognizer){
         print("Swiped Left!:start")
-        deleteImage()
-    
+        if photoAssets.count != 0 {
+            deleteImage()
+        }
         
-               print("Swiped Left!:end")
+        print("Swiped Left!:end")
     }
     
     // 写真を取得
-    private func getAllPhotosInfo() {
+    func getAllPhotosInfo() {
         // 初期化
         photoAssets = []
+        photoAssets.removeAll()
         // 画像をすべて取得
         let options = PHFetchOptions()
         options.sortDescriptors = [
@@ -143,22 +166,29 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     // 写真を表示
-    private func showPhoto() {
-        let asset = photoAssets[photoNo]
+    func showPhoto() {
         
-        manager.requestImageForAsset(asset,
-            targetSize: CGSize(width: 100.0, height: 100.0),
-            contentMode: .AspectFill,
-            options: nil) { (image, info) -> Void in
-                // 取得したimageをUIImageViewなどで表示する
-                self.photoView.contentMode = UIViewContentMode.ScaleAspectFill
-                self.photoView.image = image
-                
+        if photoAssets.count != 0 {
+            let asset = photoAssets[photoNo]
+            manager.requestImageForAsset(asset,
+                targetSize: CGSize(width: 100.0, height: 100.0),
+                contentMode: .AspectFit,
+                options: nil) { (image, info) -> Void in
+                    // 取得したimageをUIImageViewなどで表示する
+                    self.photoView.center = CGPointMake(self.photoView.center.x, self.photoY);
+                    self.photoView.contentMode = UIViewContentMode.ScaleAspectFit
+                    self.photoView.image = image
+                    self.photoView.fadeIn(.Slow)
+                    self.photoView.center = CGPointMake(self.photoView.center.x, self.photoY);
+            }
+        } else {
+            let image = UIImage(named: "noimage.jpeg")
+            self.photoView.image = image
         }
     }
     
     // 写真をふぁぼ
-    private func favPhoto() {
+    func favPhoto() {
         let favTargetAsset = photoAssets[photoNo]
         PHPhotoLibrary.sharedPhotoLibrary().performChanges({
             // Create a change request from the asset to be modified.
@@ -185,6 +215,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 print("removeされた")
                 if 0 < self.photoNo - 1 {
                     self.photoNo--
+                    self.photoAssets.removeAll()
                 }
                 self.showPhoto()
                 print("次の写真表示された")
@@ -219,4 +250,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     
+    
+    
 }
+
