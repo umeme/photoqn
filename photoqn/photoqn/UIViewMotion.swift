@@ -12,7 +12,7 @@ import UIKit
 enum FadeType: NSTimeInterval {
     case
     Normal = 0.2,
-    Slow = 1.0
+    Slow = 0.8
 }
 
 extension UIView {

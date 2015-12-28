@@ -43,17 +43,26 @@
                                     </mask>
                                 </variation>
                             </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QUQ-zF-FUl">
+                                <rect key="frame" x="180" y="248" width="240" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="0rc-hf-HCx"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="QUQ-zF-FUl" firstAttribute="centerX" secondItem="HtD-Qz-jfq" secondAttribute="centerX" id="1Ue-Pi-7cG"/>
                             <constraint firstItem="kNd-J2-bAw" firstAttribute="centerX" secondItem="HtD-Qz-jfq" secondAttribute="centerX" id="CM2-EE-gxk"/>
                             <constraint firstItem="kNd-J2-bAw" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="Ebs-2f-FhS"/>
+                            <constraint firstItem="QUQ-zF-FUl" firstAttribute="centerY" secondItem="kNd-J2-bAw" secondAttribute="centerY" id="HcE-y5-ga5"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="kNd-J2-bAw" secondAttribute="bottom" constant="46" id="KiZ-zG-Q3B"/>
                             <constraint firstItem="HtD-Qz-jfq" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" symbolic="YES" id="LOD-xb-e0U"/>
                             <constraint firstAttribute="bottomMargin" secondItem="kNd-J2-bAw" secondAttribute="bottom" constant="-29" id="VBB-ea-u6x"/>
                             <constraint firstItem="kNd-J2-bAw" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="mxj-BH-cOr"/>
                             <constraint firstItem="kNd-J2-bAw" firstAttribute="top" secondItem="HtD-Qz-jfq" secondAttribute="bottom" constant="13" id="noM-IZ-78B"/>
                             <constraint firstItem="kNd-J2-bAw" firstAttribute="top" secondItem="HtD-Qz-jfq" secondAttribute="bottom" constant="15" id="tmP-9y-PCR"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="QUQ-zF-FUl" secondAttribute="bottom" constant="224" id="u5B-5J-kQz"/>
                             <constraint firstItem="kNd-J2-bAw" firstAttribute="top" secondItem="HtD-Qz-jfq" secondAttribute="bottom" constant="15" id="vMD-wQ-4aE"/>
                             <constraint firstItem="HtD-Qz-jfq" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" symbolic="YES" id="vnx-g9-6Jy"/>
                         </constraints>
@@ -65,6 +74,7 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="myImageView" destination="QUQ-zF-FUl" id="yLb-Fq-PxX"/>
                         <outlet property="photoView" destination="kNd-J2-bAw" id="9rK-Ub-RGB"/>
                     </connections>
                 </viewController>

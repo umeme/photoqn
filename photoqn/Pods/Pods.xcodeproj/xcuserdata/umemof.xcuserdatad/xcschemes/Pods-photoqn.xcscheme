@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '68F6FB0DB744728A7088F3C3'
+               BlueprintIdentifier = 'A61BECC81181B0EFAED402CB'
                BlueprintName = 'Pods-photoqn'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'libPods-photoqn.a'>
+               BuildableName = 'Pods_photoqn.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

@@ -1,10 +1,13 @@
 PODS:
-  - MDCSwipeToChoose (0.2.3)
+  - Alamofire (3.1.4)
+  - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
-  - MDCSwipeToChoose
+  - Alamofire
+  - SwiftyJSON
 
 SPEC CHECKSUMS:
-  MDCSwipeToChoose: 56239d98b4558c66e7c3c9069482befd26092270
+  Alamofire: fbc829692f351fa1d8a31dd75fd7f7f56fea31fb
+  SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
 COCOAPODS: 0.39.0

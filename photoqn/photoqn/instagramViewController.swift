@@ -61,68 +61,160 @@ class instagramViewController: UIViewController {
         
         var userList = [String]()
         
-        req.response { (request, response, responseData, error) -> Void in
-            if error == nil {
-                if let data = responseData {
-                    let json = JSON(data: data)
-                    if let array = json["data"].array {
-                        for d in array {
-                            userList.append(d["id"].string!)
-                            print(d["username"].string)
-                            print(d["id"].string)
+        dispatch_async_global { // ここからバックグラウンドスレッド
+            req.response { (request, response, responseData, error) -> Void in
+                if error == nil {
+                    if let data = responseData {
+                        let json = JSON(data: data)
+                        if let array = json["data"].array {
+                            for d in array {
+                                userList.append(d["id"].string!)
+                                print(d["username"].string)
+                                print(d["id"].string)
+                            }
                         }
                     }
-                }
-                
-                print("ここまで１")
-                print(userList.count)
-                
-                for userId in userList {
-                    print(userId)
-                    let userPhotoListUrl = "https://api.instagram.com/v1/users/\(userId)/media/recent/"
-                    let userPhotoListParam = ["access_token":"2324960265.c7a3c7e.2094777cde3a42a3a54c1e08c02a4c0f","count":"20"]
-                    let req2 = Alamofire.request(.GET, userPhotoListUrl, parameters: userPhotoListParam)
                     
-                    req2.response { (request, response, responseData, error) -> Void in
-                        if error == nil {
-                            if let data = responseData {
-                                let json = JSON(data: data)
-                                var cnt = 0
-                                if let array = json["data"].array {
-                                    for photo in array {
-                                        print(photo["images"]["standard_resolution"]["url"].string)
-                                        
-                                        let photoUrl = photo["images"]["standard_resolution"]["url"].string
-                                        
-                                        let url = NSURL(string:photoUrl!)
-                                        let req = NSURLRequest(URL:url!)
-                                        //非同期で変換
-                                        let config = NSURLSessionConfiguration.defaultSessionConfiguration()
-                                        let session = NSURLSession(configuration: config)
-                                        let task = session.dataTaskWithRequest(req, completionHandler: {
-                                            (data, resp, err) in
-                                            let iimage = UIImage(data:data!)
-                                            self.images.append(iimage!)
+                    print("ここまで１")
+                    print(userList.count)
+                    
+                    for userId in userList {
+                        print(userId)
+                        let userPhotoListUrl = "https://api.instagram.com/v1/users/\(userId)/media/recent/"
+                        let userPhotoListParam = ["access_token":"2324960265.c7a3c7e.2094777cde3a42a3a54c1e08c02a4c0f","count":"100"]
+                        let req2 = Alamofire.request(.GET, userPhotoListUrl, parameters: userPhotoListParam)
+                        
+                        req2.response { (request, response, responseData, error) -> Void in
+                            if error == nil {
+                                if let data = responseData {
+                                    let json = JSON(data: data)
+                                    var cnt = 0
+                                    if let array = json["data"].array {
+                                        for photo in array {
+                                            print(photo["images"]["standard_resolution"]["url"].string)
+                                            print("test1")
+                                            let photoUrl = photo["images"]["standard_resolution"]["url"].string
                                             
-                                            print(cnt)
-                                            if cnt == 0 {
-                                                self.photoView.contentMode = UIViewContentMode.ScaleAspectFit
-                                                self.photoView.image = self.images[self.photoNo]
-                                            }
-                                            cnt++
-                                        })
-                                        task.resume()
+                                            let url = NSURL(string:photoUrl!)
+                                            let req = NSURLRequest(URL:url!)
+                                            print("test2")
+                                            //非同期で変換
+                                            let config = NSURLSessionConfiguration.defaultSessionConfiguration()
+                                            let session = NSURLSession(configuration: config)
+                                            let task = session.dataTaskWithRequest(req, completionHandler: {
+                                                (data, resp, err) in
+                                                print("test3")
+                                                let iimage = UIImage(data:data!)
+                                                self.images.append(iimage!)
+                                                
+                                                print(cnt)
+                                                if cnt == 0 {
+                                                    self.photoView.contentMode = UIViewContentMode.ScaleAspectFit
+                                                    self.photoView.image = self.images[self.photoNo]
+                                                }
+                                                cnt++
+                                            })
+                                            print("test4")
+                                            task.resume()
+                                            print("test5")
+                                        }
                                     }
                                 }
                             }
                         }
                     }
+                    
                 }
                 
             }
             
+            
+            self.dispatch_async_main { // ここからメインスレッド
+                self.photoView.contentMode = UIViewContentMode.ScaleAspectFit
+                if self.images.count != 0 {
+                    self.photoView.image = self.images[self.photoNo]
+                } else {
+                    let image = UIImage(named: "wait.png")
+                    self.photoView.image = image
+                }
+            }
         }
         
+        
+        //        req.response { (request, response, responseData, error) -> Void in
+        //            if error == nil {
+        //                if let data = responseData {
+        //                    let json = JSON(data: data)
+        //                    if let array = json["data"].array {
+        //                        for d in array {
+        //                            userList.append(d["id"].string!)
+        //                            print(d["username"].string)
+        //                            print(d["id"].string)
+        //                        }
+        //                    }
+        //                }
+        //
+        //                print("ここまで１")
+        //                print(userList.count)
+        //
+        //                for userId in userList {
+        //                    print(userId)
+        //                    let userPhotoListUrl = "https://api.instagram.com/v1/users/\(userId)/media/recent/"
+        //                    let userPhotoListParam = ["access_token":"2324960265.c7a3c7e.2094777cde3a42a3a54c1e08c02a4c0f","count":"1"]
+        //                    let req2 = Alamofire.request(.GET, userPhotoListUrl, parameters: userPhotoListParam)
+        //
+        //                    req2.response { (request, response, responseData, error) -> Void in
+        //                        if error == nil {
+        //                            if let data = responseData {
+        //                                let json = JSON(data: data)
+        //                                var cnt = 0
+        //                                if let array = json["data"].array {
+        //                                    for photo in array {
+        //                                        print(photo["images"]["standard_resolution"]["url"].string)
+        //                                        print("test1")
+        //                                        let photoUrl = photo["images"]["standard_resolution"]["url"].string
+        //
+        //                                        let url = NSURL(string:photoUrl!)
+        //                                        let req = NSURLRequest(URL:url!)
+        //                                        print("test2")
+        //                                        //非同期で変換
+        //                                        let config = NSURLSessionConfiguration.defaultSessionConfiguration()
+        //                                        let session = NSURLSession(configuration: config)
+        //                                        let task = session.dataTaskWithRequest(req, completionHandler: {
+        //                                            (data, resp, err) in
+        //                                        print("test3")
+        //                                            let iimage = UIImage(data:data!)
+        //                                            self.images.append(iimage!)
+        //
+        //                                            print(cnt)
+        //                                            if cnt == 0 {
+        //                                                self.photoView.contentMode = UIViewContentMode.ScaleAspectFit
+        //                                                self.photoView.image = self.images[self.photoNo]
+        //                                            }
+        //                                            cnt++
+        //                                        })
+        //                                        print("test4")
+        //                                        task.resume()
+        //                                        print("test5")
+        //                                    }
+        //                                }
+        //                            }
+        //                        }
+        //                    }
+        //                }
+        //
+        //            }
+        //
+        //        }
+        
+    }
+    
+    func dispatch_async_main(block: () -> ()) {
+        dispatch_async(dispatch_get_main_queue(), block)
+    }
+    
+    func dispatch_async_global(block: () -> ()) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), block)
     }
     
     // MARK: - Gesture Handlers
@@ -137,16 +229,23 @@ class instagramViewController: UIViewController {
         if images.count > photoNo {
             photoNo++
             // アニメーション処理
-            UIView.animateWithDuration(NSTimeInterval(CGFloat(0.8)),
+            UIView.animateWithDuration(NSTimeInterval(CGFloat(0.6)),
                 animations: {() -> Void in
                     // 移動先の座標を指定する.
                     self.photoView.center = CGPoint(x: self.photoView.center.x, y: -self.view.frame.height);
                 }, completion: {(Bool) -> Void in
                     self.photoView.center = CGPointMake(self.photoView.center.x, self.photoY);
                     self.photoView.contentMode = UIViewContentMode.ScaleAspectFit
-                    self.photoView.image = self.images[self.photoNo]
-                    self.photoView.fadeIn(.Slow)
-                    self.photoView.center = CGPointMake(self.photoView.center.x, self.photoY);
+                    print("photoNo;\(self.photoNo)")
+                    print("imageCnt;\(self.images.count)")
+                    if self.images.count > self.photoNo {
+                        self.photoView.image = self.images[self.photoNo]
+                        self.photoView.fadeIn(.Slow)
+                    } else {
+                        let image = UIImage(named: "noimage.jpeg")
+                        self.photoView.image = image
+                    }
+                    
             })
         }
         print("Swiped up!:end")
@@ -155,9 +254,10 @@ class instagramViewController: UIViewController {
     func handleSwipeDown(sender: UITapGestureRecognizer){
         print("Swiped down!:start")
         if 0 < photoNo {
+            print("photoNo;\(photoNo)")
             photoNo--
             // アニメーション処理
-            UIView.animateWithDuration(NSTimeInterval(CGFloat(0.8)),
+            UIView.animateWithDuration(NSTimeInterval(CGFloat(0.6)),
                 animations: {() -> Void in
                     // 移動先の座標を指定する.
                     self.photoView.center = CGPoint(x: self.photoView.center.x, y: +self.view.frame.height*2);
@@ -166,7 +266,6 @@ class instagramViewController: UIViewController {
                     self.photoView.contentMode = UIViewContentMode.ScaleAspectFit
                     self.photoView.image = self.images[self.photoNo]
                     self.photoView.fadeIn(.Slow)
-                    self.photoView.center = CGPointMake(self.photoView.center.x, self.photoY);
             })
         }
         print("Swiped down!:end")
@@ -178,19 +277,24 @@ class instagramViewController: UIViewController {
         UIImageWriteToSavedPhotosAlbum(targetImage, self, "image:didFinishSavingWithError:contextInfo:", nil)
         if images.count > photoNo {
             
-            
             photoNo++
             // アニメーション処理
-            UIView.animateWithDuration(NSTimeInterval(CGFloat(0.8)),
+            UIView.animateWithDuration(NSTimeInterval(CGFloat(0.6)),
                 animations: {() -> Void in
                     // 移動先の座標を指定する.
                     self.photoView.center = CGPoint(x: self.photoView.center.x, y: -self.view.frame.height);
                 }, completion: {(Bool) -> Void in
                     self.photoView.center = CGPointMake(self.photoView.center.x, self.photoY);
                     self.photoView.contentMode = UIViewContentMode.ScaleAspectFit
-                    self.photoView.image = self.images[self.photoNo]
-                    self.photoView.fadeIn(.Slow)
-                    self.photoView.center = CGPointMake(self.photoView.center.x, self.photoY);
+                    print("photoNo;\(self.photoNo)")
+                    print("imageCnt;\(self.images.count)")
+                    if self.images.count > self.photoNo {
+                        self.photoView.image = self.images[self.photoNo]
+                        self.photoView.fadeIn(.Slow)
+                    } else {
+                        let image = UIImage(named: "noimage.jpeg")
+                        self.photoView.image = image
+                    }
             })
         }
         print("Swiped Right!:end")

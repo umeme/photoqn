@@ -4,7 +4,7 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>MDCSwipeToChoose.xcscheme</key>
+		<key>Alamofire.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -14,17 +14,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-photoqnTests.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-photoqnUITests.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods.xcscheme</key>
+		<key>SwiftyJSON.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -32,27 +22,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>400104AABD28821833A35CBE5D78CFF1</key>
+		<key>2993DD10E20912E431684CF864286765</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8E66F552C0F7DEF20BED780E535BFA0D</key>
+		<key>432ECC54282C84882B482CCB4CF227FC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9E37ADF092283A9D56C37E63D21508D7</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>EAA8CA60B69B65D8488DADCACAE2F92B</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>ED1CDADFF0CD49E3E4198CB2D669813E</key>
+		<key>BDB3DEC10C3CCAEA934ABE258B0211E9</key>
 		<dict>
 			<key>primary</key>
 			<true/>

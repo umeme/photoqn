@@ -2,7 +2,7 @@
 //  photoqnUITests.swift
 //  photoqnUITests
 //
-//  Created by 梅基史篤 on 2015/12/21.
+//  Created by 梅基史篤 on 2015/12/27.
 //  Copyright © 2015年 ume. All rights reserved.
 //
 

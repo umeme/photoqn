@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "696423D91C281D5F0015954D"
+               BlueprintIdentifier = "69DD34E21C301061003D0025"
                BuildableName = "photoqn.app"
                BlueprintName = "photoqn"
                ReferencedContainer = "container:photoqn.xcodeproj">
@@ -32,7 +32,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "696423F01C281D600015954D"
+               BlueprintIdentifier = "69DD34F91C301062003D0025"
                BuildableName = "photoqnTests.xctest"
                BlueprintName = "photoqnTests"
                ReferencedContainer = "container:photoqn.xcodeproj">
@@ -42,7 +42,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "696423FB1C281D600015954D"
+               BlueprintIdentifier = "69DD35041C301062003D0025"
                BuildableName = "photoqnUITests.xctest"
                BlueprintName = "photoqnUITests"
                ReferencedContainer = "container:photoqn.xcodeproj">
@@ -52,7 +52,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "696423D91C281D5F0015954D"
+            BlueprintIdentifier = "69DD34E21C301061003D0025"
             BuildableName = "photoqn.app"
             BlueprintName = "photoqn"
             ReferencedContainer = "container:photoqn.xcodeproj">
@@ -75,7 +75,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "696423D91C281D5F0015954D"
+            BlueprintIdentifier = "69DD34E21C301061003D0025"
             BuildableName = "photoqn.app"
             BlueprintName = "photoqn"
             ReferencedContainer = "container:photoqn.xcodeproj">
@@ -94,7 +94,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "696423D91C281D5F0015954D"
+            BlueprintIdentifier = "69DD34E21C301061003D0025"
             BuildableName = "photoqn.app"
             BlueprintName = "photoqn"
             ReferencedContainer = "container:photoqn.xcodeproj">

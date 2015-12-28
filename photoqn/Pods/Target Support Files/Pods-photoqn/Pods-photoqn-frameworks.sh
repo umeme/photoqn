@@ -82,3 +82,12 @@ strip_invalid_archs() {
   fi
 }
 
+
+if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "Pods-photoqn/Alamofire.framework"
+  install_framework "Pods-photoqn/SwiftyJSON.framework"
+fi
+if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "Pods-photoqn/Alamofire.framework"
+  install_framework "Pods-photoqn/SwiftyJSON.framework"
+fi
